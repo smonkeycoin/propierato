@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Propierato — El copiloto de mantenimiento para anfitriones de México</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF7EF; --paper:#FFFFFF; --soft:#F4F8F6;
+    --ink:#15302B; --muted:#5C726D; --faint:#8A9A95;
+    --marine:#0E5E57; --marine-d:#0A4641; --turq:#16A89A;
+    --sand:#EADFC8; --sand-d:#DCCBA6; --coral:#E0694A;
+    --wa:#25D366; --wa-d:#1da851;
+    --line:#ECE5D6; --line-2:#E1EAE6;
+    --display:'Quicksand','Poppins',system-ui,sans-serif; --ui:'Inter',system-ui,-apple-system,sans-serif;
+    --shadow:0 18px 50px rgba(14,60,52,.12); --shadow-sm:0 6px 22px rgba(14,60,52,.08);
+    --r:18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.01em;line-height:1.08;margin:0}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--turq)}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:999px;border:0;cursor:pointer;transition:transform .12s,box-shadow .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-wa{background:var(--wa);color:#06371d;box-shadow:0 8px 22px rgba(37,211,102,.34)}
+  .btn-wa:hover{background:var(--wa-d);color:#fff}
+  .btn-mail{background:var(--marine);color:#EAFBF7;box-shadow:0 8px 22px rgba(14,94,87,.24)}
+  .btn-mail:hover{background:var(--marine-d);color:#fff}
+  .btn-ghost{background:transparent;color:var(--marine);border:1.5px solid var(--line-2)}
+  .btn-ghost:hover{border-color:var(--turq)}
+  .wa-ic{width:18px;height:18px;display:inline-block}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:50;background:rgba(251,247,239,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:500;letter-spacing:-.02em;font-size:22px;color:var(--ink)}
+  .mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(150deg,var(--turq),#3ad0bf);color:#06302c;font-weight:700;font-size:21px;box-shadow:0 6px 16px rgba(22,168,154,.32)}
+  .nav-links{display:flex;align-items:center;gap:26px;font-size:15px;color:var(--muted);font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-200px;right:-160px;width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(circle,rgba(22,168,154,.16),transparent 70%);z-index:0}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:64px 0 70px;position:relative;z-index:1}
+  .hero h1{font-size:54px;margin:18px 0 0}
+  .hero h1 .hl{color:var(--marine);font-weight:700}
+  .hero .lead{font-size:19px;color:var(--muted);margin:20px 0 26px;max-width:30em}
+  .cta-row{display:flex;gap:13px;flex-wrap:wrap;align-items:center}
+  .trust{margin-top:20px;font-size:13.5px;color:var(--faint);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .trust b{color:var(--marine);font-weight:600}
+
+  /* hero visual */
+  .preview{position:relative}
+  .pv-card{background:var(--paper);border:1px solid var(--line-2);border-radius:22px;box-shadow:var(--shadow);padding:20px;transform:rotate(-1.4deg)}
+  .pv-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .pv-dot{width:10px;height:10px;border-radius:50%;background:#e7d9bd}
+  .pv-title{font-size:12px;color:var(--faint);margin-left:6px;font-weight:600;letter-spacing:.04em}
+  .pv-score{display:flex;align-items:center;gap:18px;padding:6px 4px 16px;border-bottom:1px solid var(--line-2);margin-bottom:14px}
+  .ring{position:relative;width:96px;height:96px;flex:0 0 auto}
+  .ring svg{transform:rotate(-90deg)}
+  .ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:30px;color:var(--marine)}
+  .pv-score .meta .lab{font-size:12px;color:var(--faint);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+  .pv-score .meta .nm{font-family:var(--display);font-size:19px;font-weight:600;margin-top:2px}
+  .pv-score .meta .st{font-size:13px;color:var(--turq);font-weight:600;margin-top:3px}
+  .wa-card{background:#e8ddc9;border-radius:13px;padding:11px;background-image:radial-gradient(rgba(255,255,255,.5) 1px,transparent 1px);background-size:15px 15px}
+  .bub{font-size:12.5px;border-radius:11px;padding:7px 10px;margin:5px 0;max-width:86%;line-height:1.4;box-shadow:0 1px 1px rgba(0,0,0,.05)}
+  .bub.out{background:#dcf6e3;margin-left:auto;border-top-right-radius:3px}
+  .bub.in{background:#fff;border-top-left-radius:3px}
+  .bub .ph{height:46px;border-radius:7px;background:linear-gradient(135deg,#bfe3da,#7fc4b6);margin:3px 0;display:flex;align-items:flex-end;padding:5px;font-size:9px;color:#063b34;font-weight:600}
+  .wa-done{text-align:center;font-size:11px;color:#1f6e3f;font-weight:600;margin-top:7px}
+  .pv-badge{position:absolute;bottom:-16px;left:-16px;background:var(--paper);border:1px solid var(--line-2);border-radius:13px;box-shadow:var(--shadow-sm);padding:9px 13px;display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;transform:rotate(2deg)}
+  .pv-badge .ic{font-size:16px}
+
+  /* sections */
+  section{padding:66px 0}
+  .sec-head{max-width:640px;margin-bottom:40px}
+  .sec-head.center{margin:0 auto 44px;text-align:center}
+  .sec-head h2{font-size:36px;margin-top:10px}
+  .sec-head p{font-size:18px;color:var(--muted);margin:14px 0 0}
+
+  .problem{background:linear-gradient(180deg,var(--bg),#F6EFE2)}
+  .problem h2{font-size:33px;max-width:16em}
+  .problem .body{font-size:18px;color:var(--muted);max-width:40em;margin-top:18px}
+  .problem .body .pop{color:var(--coral);font-weight:600;font-style:italic}
+
+  /* pillars */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .pill{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;box-shadow:var(--shadow-sm)}
+  .pill .ic{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:24px;margin-bottom:16px}
+  .i-teal{background:#dff1ee} .i-sand{background:#F4ECD9} .i-coral{background:#fbe7e0}
+  .pill h3{font-size:21px;margin-bottom:9px}
+  .pill p{font-size:15px;color:var(--muted);margin:0}
+
+  /* owner report band */
+  .owner{background:linear-gradient(135deg,var(--marine),var(--marine-d));color:#eafbf7;border-radius:26px;padding:54px 48px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;box-shadow:var(--shadow)}
+  .owner .eyebrow{color:#7fded2}
+  .owner h2{color:#fff;font-size:33px;margin-top:10px}
+  .owner p{color:#cdeee8;font-size:17px;margin-top:16px}
+  .rep-mini{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:20px 22px;backdrop-filter:blur(4px)}
+  .rep-mini .rh{font-family:var(--display);font-size:18px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.16);padding-bottom:10px;margin-bottom:10px}
+  .rep-row{display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:#d7f1ec}
+  .rep-row b{color:#fff}
+
+  /* why band */
+  .why{background:var(--soft)}
+  .chips{display:flex;flex-wrap:wrap;gap:13px;justify-content:center;margin-top:8px}
+  .chip{background:var(--paper);border:1px solid var(--line-2);border-radius:999px;padding:11px 20px;font-size:15px;font-weight:600;color:var(--ink);display:inline-flex;gap:9px;align-items:center;box-shadow:var(--shadow-sm)}
+  .chip .ck{color:var(--turq);font-weight:800}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+  .step{position:relative;padding-top:8px}
+  .step .n{counter-increment:s;font-family:var(--display);font-size:40px;font-weight:600;color:var(--sand-d)}
+  .step h3{font-size:19px;margin:6px 0 8px}
+  .step p{font-size:15px;color:var(--muted);margin:0}
+
+  /* final cta */
+  .final{text-align:center;background:linear-gradient(180deg,#F6EFE2,var(--bg))}
+  .final h2{font-size:38px;max-width:14em;margin:0 auto}
+  .final p{font-size:18px;color:var(--muted);max-width:34em;margin:18px auto 28px}
+
+  /* footer */
+  footer{background:var(--marine-d);color:#bfe0da;padding:46px 0 34px}
+  .foot{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+  .foot .brand{color:#fff}
+  .foot .tag{font-size:14px;color:#8fc7bf;margin-top:12px;max-width:24em}
+  .foot .small{font-size:12.5px;color:#6FABA3;margin-top:18px}
+  .foot-r{font-size:14px;text-align:right;color:#aed6cf}
+  .foot-r .mx{font-size:13px;color:#8fc7bf;margin-top:6px}
+
+  @media (max-width:880px){
+    .hero-grid,.owner{grid-template-columns:1fr;gap:34px}
+    .pillars,.steps{grid-template-columns:1fr}
+    .hero h1{font-size:40px}.sec-head h2,.final h2,.owner h2{font-size:29px}
+    .nav-links a:not(.btn){display:none}
+    .preview{max-width:380px;margin:0 auto}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--turq);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><svg viewBox="0 0 64 64" width="34" height="34" aria-label="Propierato" style="flex:0 0 auto"><polyline points="11,33 32,14 53,33" fill="none" stroke="#0E5E57" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,39 29,46 45,28" fill="none" stroke="#16A89A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg> Propierato</div>
+    <nav class="nav-links">
+      <a href="#problema">El problema</a>
+      <a href="#como">Cómo funciona</a>
+      <a href="#porque">Por qué</a>
+      <a class="btn btn-mail" href="mailto:hola@propierato.com"><svg class="wa-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4h20a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v.217l9.445 5.95L20.89 6.217 12 11.783 2 6.217V6Zm0 12h20v-8.1l-9.445 5.95L2 9.9V18Zm0 0v-.1 0Z"/></svg> Escríbenos</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Para anfitriones y agencias de renta vacacional en México</span>
+      <h1>Que no se te caiga <span class="hl">ni una propiedad.</span></h1>
+      <p class="lead">Propierato es el copiloto de mantenimiento para anfitriones de México. Previene fallas, coordina a tu cuadrilla por WhatsApp y le demuestra a cada dueño que su propiedad está cuidada — sin que vivas apagando incendios.</p>
+      <div class="cta-row">
+        <a class="btn btn-mail" href="mailto:hola@propierato.com"><svg class="wa-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4h20a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v.217l9.445 5.95L20.89 6.217 12 11.783 2 6.217V6Zm0 12h20v-8.1l-9.445 5.95L2 9.9V18Zm0 0v-.1 0Z"/></svg> Escríbenos</a>
+        <a class="btn btn-ghost" href="#como">Ver cómo funciona</a>
+      </div>
+      <div class="trust">En <b>español</b> · en <b>pesos</b> · con <b>factura CFDI</b> · funciona <b>sobre tu PMS</b></div>
+    </div>
+
+    <div class="preview">
+      <div class="pv-card">
+        <div class="pv-top"><span class="pv-dot"></span><span class="pv-dot"></span><span class="pv-dot"></span><span class="pv-title">CASA AKUMAL · CENTRO DE CONTROL</span></div>
+        <div class="pv-score">
+          <div class="ring">
+            <svg width="96" height="96" viewBox="0 0 96 96">
+              <circle cx="48" cy="48" r="40" fill="none" stroke="#E6ECEA" stroke-width="9"/>
+              <circle cx="48" cy="48" r="40" fill="none" stroke="#16A89A" stroke-width="9" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="33"/>
+            </svg>
+            <b>87</b>
+          </div>
+          <div class="meta">
+            <div class="lab">Home Score</div>
+            <div class="nm">Salud estable</div>
+            <div class="st">▲ +4 este mes</div>
+          </div>
+        </div>
+        <div class="wa-card">
+          <div class="bub out">Casa Akumal — cambio de filtro A/A (preventivo por salitre). ¿Hoy 4pm?</div>
+          <div class="bub in">Va, confirmado 👍</div>
+          <div class="bub in" style="max-width:70%"><div class="ph">📷 Evidencia · filtro nuevo</div>Listo ✅</div>
+          <div class="wa-done">✓ Orden cerrada · $850 MXN</div>
+        </div>
+      </div>
+      <div class="pv-badge"><span class="ic">📩</span> Reporte enviado al dueño</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problema">
+  <div class="wrap">
+    <span class="eyebrow">El día a día</span>
+    <h2>Operar rentas vacacionales es vivir apagando incendios.</h2>
+    <p class="body">El A/C que truena con huésped dentro. El grupo de WhatsApp con cinco plomeros. El Excel que nadie actualiza. Y el dueño que escribe <span class="pop">"¿cómo está mi casa?"</span> sin que tengas una buena respuesta. En la costa, además, el salitre y la humedad no perdonan — y cada falla es una mala reseña, un reembolso, o un dueño que se va.</p>
+  </div>
+</section>
+
+<!-- SOLUTION / PILLARS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">La solución</span>
+      <h2>Una sola plataforma para la trastienda de tus propiedades.</h2>
+      <p>No reemplaza tu PMS — vive encima de él y se encarga de lo que el PMS no hace: mantener cada casa lista y sana.</p>
+    </div>
+    <div class="pillars">
+      <div class="pill">
+        <div class="ic i-teal">🛠️</div>
+        <h3>Mantenimiento preventivo</h3>
+        <p>Calendarios afinados al clima costero. Propierato te avisa <em>antes</em> de que el salitre se coma el A/C — no después, con el huésped molesto.</p>
+      </div>
+      <div class="pill">
+        <div class="ic i-sand">💚</div>
+        <h3>Home Score</h3>
+        <p>La salud de cada propiedad en un solo número. Ves de un vistazo qué casa necesita atención hoy, sin abrir cinco chats.</p>
+      </div>
+      <div class="pill">
+        <div class="ic i-coral">💬</div>
+        <h3>Proveedores por WhatsApp</h3>
+        <p>Asigna la orden a tu cuadrilla por WhatsApp, recibe la foto de evidencia y ciérrala. Sin apps que nadie quiere bajar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OWNER REPORT -->
+<section>
+  <div class="wrap">
+    <div class="owner">
+      <div>
+        <span class="eyebrow">Tu gancho de retención</span>
+        <h2>El reporte que te mantiene contratado.</h2>
+        <p>Cada mes, Propierato le manda a cada dueño un reporte de la salud de su propiedad — con tu marca, en español. Le demuestras que su casa está cuidada <em>antes</em> de que pregunte. Es el historial de salud del activo: el "Carfax de la casa".</p>
+      </div>
+      <div class="rep-mini">
+        <div class="rh">Casa Akumal — Enero</div>
+        <div class="rep-row"><span>Home Score</span><b>87 / 100 · Estable</b></div>
+        <div class="rep-row"><span>Preventivos realizados</span><b>4</b></div>
+        <div class="rep-row"><span>Incidencias resueltas</span><b>1</b></div>
+        <div class="rep-row"><span>Próximo servicio</span><b>Filtro A/A · 12 feb</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="porque">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Por qué Propierato</span>
+      <h2>Hecho para cómo operas en México.</h2>
+      <p>No es una herramienta gringa traducida. Está pensado para tu mercado, tu cuadrilla y tu manera de trabajar.</p>
+    </div>
+    <div class="chips">
+      <span class="chip"><span class="ck">✓</span> En español</span>
+      <span class="chip"><span class="ck">✓</span> En pesos, con factura CFDI</span>
+      <span class="chip"><span class="ck">✓</span> Todo por WhatsApp</span>
+      <span class="chip"><span class="ck">✓</span> Proveedores locales</span>
+      <span class="chip"><span class="ck">✓</span> Sobre tu PMS, no contra él</span>
+      <span class="chip"><span class="ck">✓</span> Afinado al clima costero</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="como">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Cómo funciona</span>
+      <h2>De caos a control, en tres pasos.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <h3>Conecta tu PMS</h3>
+        <p>Jalamos tus reservas automáticamente. No cambias de sistema ni mueves tu calendario.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h3>Propierato agenda los preventivos</h3>
+        <p>Afinados a cada propiedad, a sus equipos y al clima de la costa. Nada se te pasa.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h3>Tu cuadrilla ejecuta por WhatsApp</h3>
+        <p>Asignas, recibes la evidencia y, con un clic, le reportas al dueño que todo está bien.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" id="cta">
+  <div class="wrap">
+    <span class="eyebrow">Estamos arrancando</span>
+    <h2>¿Listo para dejar de apagar incendios?</h2>
+    <p>Estamos empezando con un grupo pequeño de operadores de la Riviera Maya. Escríbenos a <a href="mailto:hola@propierato.com">hola@propierato.com</a> y sé de los primeros en probarlo.</p>
+    <a class="btn btn-mail" href="mailto:hola@propierato.com" style="font-size:16px;padding:15px 28px"><svg class="wa-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4h20a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v.217l9.445 5.95L20.89 6.217 12 11.783 2 6.217V6Zm0 12h20v-8.1l-9.445 5.95L2 9.9V18Zm0 0v-.1 0Z"/></svg> Escríbenos</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div class="brand" style="font-size:22px;display:flex;align-items:center;gap:11px"><svg viewBox="0 0 64 64" width="34" height="34" aria-label="Propierato" style="flex:0 0 auto"><polyline points="11,33 32,14 53,33" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,39 29,46 45,28" fill="none" stroke="#2BC4B2" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg> Propierato</div>
+      <div class="tag">El copiloto de mantenimiento para anfitriones — local y por WhatsApp.</div>
+      <div class="small">© 2026 Propierato · propierato.com</div>
+    </div>
+    <div class="foot-r">
+      hola@propierato.com
+      <div class="mx">Hecho en México 🇲🇽</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
